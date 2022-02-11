@@ -1,0 +1,32 @@
+## WinEvent input
+# Collects winevents from the local machine
+
+[evt.system]
+LogName="system"
+Index="spek2_os_win_002"
+#Rules=["outputs.metago"]
+Outputs=["preprod"]
+
+[metrics.cpuinfo]
+Index="spek2_metrics_cpuinfo"
+Metrics=["cpuinfo"] # Cpu version, and specific information]
+Cron="@boot"
+Outputs=["preprod"]
+
+[metrics.process] 
+Index="spek2_metrics_process" 
+Metrics=["process"] 
+Cron="! 0 * * * * *" 
+Outputs=["preprod"]
+
+[metrics.conn] 
+Index="spek2_metrics_conn" 
+Metrics=["connections"] # Connection,src,dst,ports,process pid, type, status 
+Cron="! 0 * * * * *" 
+Outputs=["preprod"] 
+
+[outputs.preprod]
+Urls=["metagos://siem.preprod.pdmfc.com/dynamic-ports/10003/:80/"]
+
+[system.web]
+Disabled=true
